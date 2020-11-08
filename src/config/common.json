@@ -1,5 +1,14 @@
 {
   "APP_NAME": "substrate-front-end-tutorial",
   "DEVELOPMENT_KEYRING": true,
-  "RPC": {}
+  "RPC": {},
+  "CUSTOM_TYPES": {
+    "Address": "AccountId",
+    "LookupSource": "AccountId",
+    "Ecollection": {
+      "ecollection_id": "Hash",
+      "ecollection_title": "Vec<u8>",
+      "ecollection_value": "u32"
+    }
+  }
 }

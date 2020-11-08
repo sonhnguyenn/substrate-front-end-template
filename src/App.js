@@ -72,8 +72,8 @@ function Main () {
             <Interactor accountPair={accountPair} />
             <Events />
           </Grid.Row>
-          <Grid.Row>
-            <TemplateModule accountPair={accountPair} />
+          <Grid.Row stretched>
+            <TemplateModule accountPair={accountPair} accountAddress={accountAddress} />
           </Grid.Row>
         </Grid>
       </Container>
