@@ -15,6 +15,7 @@ import NodeInfo from './NodeInfo';
 import TemplateModule from './TemplateModule';
 import Transfer from './Transfer';
 import Upgrade from './Upgrade';
+import MultiSigTransfer from './MultiSigTransfer';
 
 function Main () {
   const [accountAddress, setAccountAddress] = useState(null);
@@ -76,6 +77,9 @@ function Main () {
             <TemplateModule accountPair={accountPair} />
           </Grid.Row>
         </Grid>
+        <Grid.Row>
+          <MultiSigTransfer accountPair={accountPair} />
+        </Grid.Row>
       </Container>
       <DeveloperConsole />
     </div>
