@@ -2,33 +2,52 @@ import React, { useEffect, useState } from 'react';
 import { Table, Grid, Button } from 'semantic-ui-react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useSubstrate } from './substrate-lib';
+import ERC20 from './ERC20';
 
 export default function Main (props) {
   const { api, keyring } = useSubstrate();
   const accounts = keyring.getPairs();
   const [balances, setBalances] = useState({});
 
+  const handleERC20 = ERC20(api);
+
   useEffect(() => {
     const addresses = keyring.getPairs().map(account => account.address);
     let unsubscribeAll = null;
 
-    api.query.system.account
-      .multi(addresses, balances => {
-        const balancesMap = addresses.reduce((acc, address, index) => ({
-          ...acc, [address]: balances[index].data.free.toHuman()
-        }), {});
-        setBalances(balancesMap);
-      }).then(unsub => {
-        unsubscribeAll = unsub;
-      }).catch(console.error);
+    const getBalanceOf = async (account) => {
+      const balance = await handleERC20.query.balanceOf(account, 0, 1000000000000, account);
+      // console.log(balance);
+      return balance;
+    };
+
+    const allBalances = addresses.map((address) => {
+      return getBalanceOf(address).then(result => ({ ...result, address }));
+    });
+
+    Promise.all(allBalances).then(balances => {
+      const balancesMap = balances.reduce((acc, result, address, output) => {
+        if (result.isSuccess) {
+          return {
+            ...acc,
+            [address]: output.toHuman()
+          };
+        }
+        return acc;
+      }, {});
+
+      setBalances(balancesMap);
+    }).then(unsub => {
+      unsubscribeAll = unsub;
+    }).catch(console.error);
 
     return () => unsubscribeAll && unsubscribeAll();
-  }, [api, keyring, setBalances]);
+  }, [api, keyring, setBalances, handleERC20]);
 
   return (
     <Grid.Column>
-      <h1>Base Unit Balances</h1>
-      <h2>Used for paying fees</h2>
+      <h1>ERC20 Balances</h1>
+      <h2>Used for tokenomics :)</h2>
       <Table celled striped size='small'>
         <Table.Body>{accounts.map(account =>
           <Table.Row key={account.address}>

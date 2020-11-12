@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Input, Grid, Label, Icon } from 'semantic-ui-react';
-import { TxButton } from './substrate-lib/components';
+import { ERC20TxButton } from './substrate-lib/components';
 
 export default function Main (props) {
   const [status, setStatus] = useState(null);
@@ -14,15 +14,8 @@ export default function Main (props) {
 
   return (
     <Grid.Column width={8}>
-      <h1>Base Unit Transfer</h1>
+      <h1>ERC20 Transfer</h1>
       <Form>
-        <Form.Field>
-          <Label basic color='teal'>
-            <Icon name='hand point right' />
-            1 Unit = 1000000000000
-          </Label>
-        </Form.Field>
-        <Form.Field>Transfer more than the existential amount for account with 0 balance</Form.Field>
         <Form.Field>
           <Input
             fluid
@@ -43,14 +36,12 @@ export default function Main (props) {
           />
         </Form.Field>
         <Form.Field style={{ textAlign: 'center' }}>
-          <TxButton
+          <ERC20TxButton
             accountPair={accountPair}
-            label='Submit'
+            label='ERC20 Transfer'
             type='SIGNED-TX'
             setStatus={setStatus}
             attrs={{
-              palletRpc: 'balances',
-              callable: 'transfer',
               inputParams: [addressTo, amount],
               paramFields: [true, true]
             }}

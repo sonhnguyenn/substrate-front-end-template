@@ -34,7 +34,8 @@ function TxButton ({
   const loadSudoKey = () => {
     (async function () {
       if (!api) { return; }
-      setSudoKey(null);
+      const sudoKey = await api.query.sudo.key();
+      sudoKey.isEmpty ? setSudoKey(null) : setSudoKey(sudoKey.toString());
     })();
   };
 

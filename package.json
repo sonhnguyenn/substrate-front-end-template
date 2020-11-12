@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@polkadot/api": "^2.2.1",
+    "@polkadot/api-contract": "^2.4.1",
     "@polkadot/extension-dapp": "^0.34.1",
     "@polkadot/keyring": "^3.5.1",
     "@polkadot/types": "^2.2.1",
@@ -83,9 +84,9 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://sonhnguyenn.github.io/substrate-front-end-template",
+  "homepage": "https://substrate-developer-hub.github.io/substrate-front-end-template",
   "bugs": {
-    "url": "https://github.com/sonhnguyenn/substrate-front-end-template/issues"
+    "url": "https://github.com/substrate-developer-hub/substrate-front-end-template/issues"
   },
   "keywords": [
     "substrate",
